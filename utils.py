@@ -1,3 +1,4 @@
+from ast import Index
 import socket
 import random
 import warnings
@@ -106,7 +107,7 @@ def log(content: str, is_tracker=False, node_id: int = 0) -> None:
 
 
 def send_segment(sock: socket.socket, data: bytes, addr: tuple):
-    ip, dest_port = addr
+    _, dest_port = addr
     segment = UDPSegment(src_port=sock.getsockname()[1],
                          dest_port=dest_port,
                          data=data)
