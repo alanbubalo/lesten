@@ -370,7 +370,11 @@ class Node:
         timer_thread.setDaemon(True)
         timer_thread.start()
 
-def run(node_id: int):
+def run(node_id: int | None):
+    if node_id is None:
+        print("Please enter a node id!")
+        exit(0)
+
     node = Node(node_id=node_id)
     node.setup()
 
@@ -409,7 +413,7 @@ def run(node_id: int):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-node_id', type=int,  help='id of the node you want to create')
+    parser.add_argument('-node_id', type=int, help='id of the node you want to create')
     node_args = parser.parse_args()
 
     # run the node
