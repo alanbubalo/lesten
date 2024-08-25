@@ -104,6 +104,12 @@ class Node:
             log(node_id=self.node_id,
                 content=f"You don't have {filename}")
             return
+
+        if not filename.endswith(".mp3") and not filename.endswith(".wav"):
+            log(node_id=self.node_id,
+                content=f"You can only send .mp3 and .wav files!")
+            return
+
         message = Node2Tracker(node_id=self.node_id,
                                mode=config.tracker_requests_mode.OWN,
                                filename=filename)
