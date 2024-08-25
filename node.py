@@ -1,6 +1,5 @@
 # built-in libraries
 from utils import *
-import argparse
 from threading import Thread, Timer
 from operator import itemgetter
 import datetime
@@ -21,7 +20,7 @@ from messages.chunk_sharing import ChunkSharing
 next_call = time.time()
 
 class Node:
-    def __init__(self, node_id: int, rcv_port: int = generate_random_port(), send_port: int = generate_random_port()):
+    def __init__(self, node_id: int = int(time.time()), rcv_port: int = generate_random_port(), send_port: int = generate_random_port()):
         self.node_id = node_id
         self.rcv_socket = set_socket(rcv_port)
         self.send_socket = set_socket(send_port)
@@ -370,12 +369,8 @@ class Node:
         timer_thread.setDaemon(True)
         timer_thread.start()
 
-def run(node_id: int | None):
-    if node_id is None:
-        print("Please enter a node id!")
-        exit(0)
-
-    node = Node(node_id=node_id)
+def run():
+    node = Node()
     node.setup()
 
     print("ENTER YOUR COMMAND!")
@@ -412,9 +407,5 @@ def run(node_id: int | None):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-node_id', type=int, help='id of the node you want to create')
-    node_args = parser.parse_args()
-
     # run the node
-    run(node_id=node_args.node_id)
+    run()
